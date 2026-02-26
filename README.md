@@ -1,261 +1,134 @@
-🎬 Agentic-AI-Based-Video-Creator
+# 🎬 Agentic-AI-Based-Video-Creator
 
-An autonomous, zero-budget AI system that generates, critiques, optimizes, renders, and prepares YouTube Shorts videos end-to-end using a multi-agent architecture.
+> **An autonomous, zero-budget AI production studio.** > This system leverages a multi-agent architecture to research, write, critique, and render high-retention YouTube Shorts without human intervention.
 
-Built with structured LLM outputs, deterministic validation, and a modular media pipeline.
+---
 
-🚀 Features
+## 🚀 Overview
 
-✅ Multi-agent AI architecture
-✅ Structured JSON outputs (Pydantic enforced)
-✅ Script generation with multiple variations
-✅ Self-critique + debate-based selection
-✅ Hook optimization (Retention Agent)
-✅ SEO metadata generation
-✅ Thumbnail concept generation
-✅ Image generation (API or local diffusion)
-✅ Text-to-Speech (Piper / local)
-✅ Automated video rendering (FFmpeg)
-✅ Analytics logging
-✅ Fully zero-budget compatible
+Unlike linear "Prompt-to-Video" tools, this project uses an **Agentic Workflow**. It doesn't just generate a script; it creates multiple variations, subjects them to a "Council of Critics," optimizes the hooks for retention, and renders the final media using a deterministic pipeline.
 
-🧠 Architecture Overview
-Planner
-↓
-Research
-↓
-Multiple Script Variations
-↓
-Critic Agents
-↓
-Debate Selection
-↓
-Retention Optimization
-↓
-SEO + Thumbnail Agents
-↓
-Media Pipeline (Images + TTS + Video)
-↓
-Upload + Analytics
-📁 Project Structure
+### **Core Pillars**
+
+- **Multi-Agent Reasoning:** Specialized AI personas (Researchers, Scriptwriters, Critics).
+- **Structured Outputs:** Pydantic-enforced JSON ensures the LLM never "breaks" the code.
+- **Zero-Cost Stack:** Optimized for local execution via **Ollama**, **Piper TTS**, and **FFmpeg**.
+- **Retention Engine:** Dedicated agents focused solely on the first 3 seconds (The Hook).
+
+---
+
+## 🧠 Architecture
+
+The system follows a modular "Chain of Thought" execution:
+
+```mermaid
+graph TD
+    A[Planner Agent] --> B[Research Agent]
+    B --> C[Script Agent - Multi-Variations]
+    C --> D[Critic Agents - Debate]
+    D --> E[Retention Optimizer]
+    E --> F[SEO & Thumbnail Agent]
+    F --> G[Media Pipeline: TTS + Images]
+    G --> H[FFmpeg Renderer]
+    H --> I[Final .mp4 + Metadata]
+
+```
+
+---
+
+## 📁 Project Structure
+
+```text
 Agentic-AI-Based-Video-Creator/
+├── agents/                 # AI Persona logic (Planner, Critic, etc.)
+├── media_pipeline/         # Media engines (Image Gen, TTS, FFmpeg)
+├── orchestrator/           # The "Brain" (Engine & Memory management)
+├── analytics/              # Performance & metadata logs
+├── models/                 # Pydantic schemas for data validation
+├── utils/                  # LLM API wrappers (Ollama/OpenAI)
+└── main.py                 # System entry point
 
-├── agents/
-│ ├── base_agent.py
-│ ├── planner_agent.py
-│ ├── research_agent.py
-│ ├── script_agent.py
-│ ├── critic_agent.py
-│ ├── debate_critic_agent.py
-│ ├── retention_agent.py
-│ ├── seo_agent.py
-│ └── thumbnail_agent.py
-│
-├── media_pipeline/
-│ ├── image_generator.py
-│ ├── tts_engine.py
-│ ├── video_renderer.py
-│ └── thumbnail_renderer.py
-│
-├── orchestrator/
-│ ├── engine.py
-│ └── memory.py
-│
-├── analytics/
-│ └── performance_tracker.py
-│
-├── models/
-│ └── schemas.py
-│
-├── utils/
-│ └── llm.py
-│
-└── main.py
-⚙️ Requirements
+```
 
-Python 3.10+ (Recommended)
+---
 
-Ollama (for local LLM)
+## 🛠️ Technical Stack
 
-FFmpeg
+| Component           | Technology                                     |
+| ------------------- | ---------------------------------------------- |
+| **Orchestration**   | Python 3.10+ / Pydantic                        |
+| **LLM (Brain)**     | Ollama (qwen2.5, llama3, or mistral)           |
+| **Audio (TTS)**     | Piper (Fast, local, neural TTS)                |
+| **Visuals**         | Stable Diffusion (Local) or Stable Horde (API) |
+| **Video Rendering** | FFmpeg                                         |
+| **Processing**      | Pillow / OpenCV                                |
 
-Pillow
+---
 
-Requests
+## 📦 Installation
 
-Optional:
+### 1. Clone & Environment
 
-Stable Diffusion / API service
-
-Piper TTS
-
-YouTube API credentials
-
-📦 Installation
-1️⃣ Clone the repository
-git clone https://github.com/yourusername/Agentic-AI-Based-Video-Creator.git
+```bash
+git clone https://github.com/ldhiman/Agentic-AI-Based-Video-Creater
 cd Agentic-AI-Based-Video-Creator
-2️⃣ Create virtual environment
 python -m venv venv
-venv\Scripts\activate # Windows
-3️⃣ Install dependencies
-pip install -r requirements.txt
-
-If no requirements file:
-
+source venv/bin/activate  # Windows: venv\Scripts\activate
 pip install pydantic requests pillow google-api-python-client
-🧠 LLM Setup (Ollama)
 
-Install Ollama:
-https://ollama.com/
+```
 
-Pull model:
+### 2. LLM Setup (Local)
 
+Install [Ollama](https://ollama.com/) and pull the model:
+
+```bash
 ollama pull qwen2.5:7b
 
-Ensure utils/llm.py is configured correctly.
+```
 
-🎨 Image Generation Options
+### 3. Media Dependencies
 
-You can use:
+- **FFmpeg:** Ensure `ffmpeg` is in your system PATH.
+- **Piper TTS:** Download the [Piper executable](https://github.com/rhasspy/piper) and place your preferred `.onnx` voice model in the root directory.
 
-Stable Horde (free API)
+---
 
-DeepAI API
+## 🎬 How It Works
 
-Replicate
+Run the entire pipeline with a single command:
 
-Local Diffusers
-
-ComfyUI
-
-Automatic1111
-
-Update media_pipeline/image_generator.py accordingly.
-
-🔊 TTS Setup (Piper Recommended)
-
-Download Piper:
-https://github.com/rhasspy/piper/releases
-
-Place:
-
-piper.exe
-voice_model.onnx
-
-Update path inside tts_engine.py.
-
-🎬 Run the System
+```bash
 python main.py
 
-The system will:
+```
 
-Generate topic
+1. **Ideation:** The **Planner** selects a niche based on trending data.
+2. **The Debate:** Two **Critics** analyze the script variations. If a script is "boring," it's sent back for a rewrite.
+3. **Visual Planning:** The **Thumbnail Agent** creates high-CTR concepts while the **Image Agent** generates prompts.
+4. **Production:** The **Media Pipeline** synthesizes voiceovers, generates images, and uses FFmpeg to overlay subtitles and transitions.
+5. **Output:** All assets are saved in `/output/` alongside an `analytics_log.json`.
 
-Create scripts
+---
 
-Self-evaluate
+## 🔥 Why Agentic Architecture?
 
-Optimize hook
+Standard AI video tools often produce "generic" content. This system mimics a human production team:
 
-Generate SEO + thumbnail
+- **The Script Agent** focuses on storytelling.
+- **The Retention Agent** focuses on keeping the user from scrolling.
+- **The Critic Agent** ensures the facts are correct and the tone is consistent.
 
-Generate images
+---
 
-Generate voice
+## 📈 Future Roadmap
 
-Render final video
+- [ ] **YouTube Auto-Upload:** Integration with YouTube Data API.
+- [ ] **Feedback Loop:** Scrape YouTube Studio analytics to "teach" the Planner what works.
+- [ ] **Vector Memory:** Allow agents to remember previous "hits" to replicate success.
 
-Save metadata
+---
 
-Output folder:
+## ⚠ Disclaimer
 
-/output/
-📊 Analytics Logging
-
-Each generated video logs:
-
-Topic
-
-Title
-
-Paths
-
-Timestamp
-
-Stored in:
-
-analytics_log.json
-🧠 Design Principles
-
-LLM handles creativity
-
-Python handles validation
-
-Structured outputs enforced via Pydantic
-
-Deterministic approval logic
-
-Agent-based modularity
-
-Zero-budget friendly
-
-🔥 Why Agentic Architecture?
-
-Instead of a single prompt pipeline:
-
-This system:
-
-Generates multiple competing scripts
-
-Uses critics for scoring
-
-Uses debate to select winner
-
-Improves retention hooks
-
-Separates creativity from enforcement
-
-This increases output quality and reliability.
-
-📈 Future Improvements
-
-YouTube auto-upload integration
-
-Performance-based feedback loop
-
-Multi-channel scaling
-
-Trend-based topic generation
-
-Vector memory storage
-
-Distributed execution
-
-⚠ Disclaimer
-
-This tool is for educational and experimental use.
-
-Ensure compliance with:
-
-YouTube policies
-
-Copyright rules
-
-API usage limits
-
-🏆 Project Goal
-
-To demonstrate a fully autonomous AI content pipeline using:
-
-Multi-agent reasoning
-
-Structured LLM outputs
-
-Deterministic validation
-
-Zero-cost infrastructure
-
-👨‍💻 Author
-
-Built as an experimental autonomous AI media system.
+This tool is for educational and experimental use. Users are responsible for ensuring their content complies with YouTube’s Community Guidelines and copyright laws.
