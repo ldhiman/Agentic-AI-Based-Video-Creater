@@ -58,7 +58,7 @@ Agentic-AI-Based-Video-Creator/
 | ------------------- | ---------------------------------------------- |
 | **Orchestration**   | Python 3.10+ / Pydantic                        |
 | **LLM (Brain)**     | Ollama (qwen2.5, llama3, or mistral)           |
-| **Audio (TTS)**     | Piper (Fast, local, neural TTS)                |
+| **Audio (TTS)**     | Pyttsx3                                        |
 | **Visuals**         | Stable Diffusion (Local) or Stable Horde (API) |
 | **Video Rendering** | FFmpeg                                         |
 | **Processing**      | Pillow / OpenCV                                |
